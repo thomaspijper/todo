@@ -13,7 +13,7 @@ fn set_undo(args_iter: env::Args) -> Result<(), task::ArgError> {
     Ok(())
 }
 
-fn main(){
+fn main() {
     let filename: PathBuf = get_filename();
     let mut tasks: Vec<task::Task> = vec![];
 
