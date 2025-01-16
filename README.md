@@ -28,12 +28,12 @@ Tasks can be modified with the following commands:
 * `todo note [task_id] [text]` sets a note or description for the task with ID `task_id`. All arguments after the ID are taken as the note. If a note already exists, `text` is added to it. If `text` equals `clear`, the note is removed
 * `todo color [task_id] [color]` sets a color for the task with ID `task_id`. Colors can be used to group and order tasks. Available colors are `red`, `yellow`, `green`, `blue`, and `purple`. Specifying `clear` removes the color.
 * `todo show [task_id]` shows details for the task with ID `task_id`.
-* `todo remove [task_id]` removes the task with ID `task_id`.
+* `todo remove [task_id]` removes the task with ID `task_id`. Remaining tasks have their `task_id` renumbered. 
 
 Finally, the following non-task specific commands are available:
 
 * `todo list` lists all tasks.
-* `todo sort` groups tasks by color and sorts them by colors of the rainbow (red -> purple). Within each group, tasks are sorted by due date. Note: this operations changes the IDs of the tasks.
+* `todo sort` groups tasks by color and sorts them by colors of the rainbow (red -> purple). Within each group, tasks are sorted by due date. Note: this operations renumbers the IDs of the tasks.
 * `todo undo` undoes the latest change to tasks. Currently, only one undo is available.
 * `todo help` displays how this program can be used.
 
