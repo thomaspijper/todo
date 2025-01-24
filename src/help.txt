@@ -15,8 +15,8 @@ Available commands:
                                 green
                                 blue
                                 purple
-  rename [task_id] [taske name] Renames the task with ID 'task_id' to task name'.
                                 Specifying "clear" removes any color.
+  rename [task_id] [taske name] Renames the task with ID 'task_id' to task name'.
   remove [task_id]              Removes the task with ID 'task_id'.
   list                          Lists all tasks.
   show [task_id]                Shows details for the task with ID 'task_id'
