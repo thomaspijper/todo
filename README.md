@@ -6,10 +6,6 @@ ToDo is a simple command-line based task manager. Although created as an program
 
 ToDo allows one to create tasks, set due dates, add notes, and label and categorize tasks by color. It is operated from a terminal.
 
-![image](https://github.com/user-attachments/assets/7d374516-70f5-422a-bda3-964923d76c73)
-
-![image](https://github.com/user-attachments/assets/07b5ce7c-d1af-4252-a9df-af81f8d327a7)
-
 ## Getting Started
 
 ### Dependencies
@@ -28,6 +24,7 @@ Run the program with `todo [command] [arguments]`. The following commands are (s
 * `todo due [task_id] [due_date]` sets the due date for the task with ID `task_id`. The required format for `due_date` is YYYY-MM-DD.
 * `todo note [task_id] [text]` sets a note or description for the task with ID `task_id`. All arguments after the ID are taken as the note. If a note already exists, `text` is added to it. If `text` equals `clear`, the note is removed
 * `todo color [task_id] [color]` sets a color for the task with ID `task_id`. Colors can be used to group and order tasks. Available colors are `red`, `yellow`, `green`, `blue`, and `purple`. Specifying `clear` removes the color.
+* `todo due [task_id] [task name]` renames the task with ID `task_id` to `task name`.
 * `todo remove [task_id]` removes the task with ID `task_id`.
 * `todo list` lists all tasks.
 * `todo show [task_id]` shows details for the task with ID `task_id`.

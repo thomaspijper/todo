@@ -41,10 +41,13 @@ fn main() {
     let command_str = command.as_str();
     let result = match command_str {
         "add"    => task::create_task(&mut tasks, args_iter),
+
         "due"    => task::add_duedate(&mut tasks, args_iter),
         "note"   => task::add_note(&mut tasks, args_iter),
         "color"  => task::set_task_color(&mut tasks, args_iter),
+        "rename" => task::rename_task(&mut tasks, args_iter),
         "remove" => task::delete_task(&mut tasks, args_iter),
+
         "list"   => task::list_tasks(&tasks, args_iter),
         "show"   => task::show_task(&tasks, args_iter),
         "sort"   => task::sort_tasks(&mut tasks, args_iter),
@@ -61,7 +64,7 @@ fn main() {
     let mut save_flag = false;
     match result {
         Ok(..) => {
-            if matches!(command_str, "add" | "due" | "note" | "color" | "remove" | "sort") {
+            if matches!(command_str, "add" | "due" | "note" | "color" | "rename" | "remove" | "sort") {
                 save_flag = true;
             } else if matches!(command_str, "undo") {
                 undo_flag = true;
