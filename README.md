@@ -32,8 +32,8 @@ A task can be viewed with the command below:
 
 Tasks can be modified with the following commands:
 
-* `todo due [task_id] [due_date]` sets the due date for the task with ID `task_id`. The required format for `due_date` is YYYY-MM-DD.
-* `todo note [task_id] [text]` sets a note or description for the task with ID `task_id`. All arguments after the ID are taken as the note. If a note already exists, `text` is added to it. If `text` equals `clear`, the note is removed
+* `todo due [task_id] [due_date]` sets the due date for the task with ID `task_id`. The required format for `due_date` is YYYY-MM-DD. If `due_date` equals `clear`, the due date is removed.
+* `todo note [task_id] [text]` sets a note or description for the task with ID `task_id`. All arguments after the ID are taken as the note. If a note already exists, `text` is added to it. If `text` equals `clear`, the note is removed.
 * `todo color [task_id] [color]` sets a color for the task with ID `task_id`. Colors can be used to group and order tasks. Available colors are `red`, `yellow`, `green`, `blue`, and `purple`. Specifying `clear` removes the color.
 * `todo rename [task_id] [task name]` renames the task with ID `task_id` to `task name`.
 * `todo remove [task_id]` removes the task with ID `task_id`. Remaining tasks have their `task_id` renumbered. 
