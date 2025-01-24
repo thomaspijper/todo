@@ -6,6 +6,10 @@ ToDo is a simple command-line based task manager. Although created as an program
 
 ToDo allows one to create tasks, set due dates, add notes, and label and categorize tasks by color. It is operated from a terminal.
 
+![1](https://github.com/user-attachments/assets/58e0b3ec-e98f-4acd-8a12-a8a644dca4e1)
+
+![2](https://github.com/user-attachments/assets/82c7342f-3196-4c33-b86d-de7333d01e55)
+
 ## Getting Started
 
 ### Dependencies
