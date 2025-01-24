@@ -555,7 +555,7 @@ mod tests {
         ));
         assert_eq!(
             tasks[0].due_date,
-            Option::None
+            None
         );
     }
 
