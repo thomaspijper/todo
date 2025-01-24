@@ -1,27 +1,28 @@
 Usage: todo [command] [arguments]
 
 Available commands:
-  add [task name]           Adds a task with name 'task name'. Spaces in the name are allowed.
-  due [task_id] [due_date]  Sets the due date for the task with ID 'task_id'. The required
-                            format for 'due_date' is YYYY-MM-DD.
-  note [task_id] [text]     Sets a note or description for the task with ID 'task_id'. All
-                            arguments after the ID are taken as the note. If a note already
-                            exists, 'text' is added to it. If 'text' equals 'clear', the note
-                            is removed.
-  color [task_id] [color]   Sets a color for the task with ID 'task_id'.
-                            Available colors are:
+  add [task name]               Adds a task with name 'task name'. Spaces in the name are allowed.
+  due [task_id] [due_date]      Sets the due date for the task with ID 'task_id'. The required
+                                format for 'due_date' is YYYY-MM-DD.
+  note [task_id] [text]         Sets a note or description for the task with ID 'task_id'. All
+                                arguments after the ID are taken as the note. If a note already
+                                exists, 'text' is added to it. If 'text' equals 'clear', the note
+                                is removed.
+  color [task_id] [color]       Sets a color for the task with ID 'task_id'.
+                                Available colors are:
                                 red
                                 yellow
                                 green
                                 blue
                                 purple
-                            Specifying "clear" removes any color.
-  remove [task_id]          Removes the task with ID 'task_id'.
-  list                      Lists all tasks.
-  show [task_id]            Shows details for the task with ID 'task_id'
-  sort                      Groups tasks by color and sorts them by colors of the rainbow
-                            (red -> purple). Within each group, tasks are sorted by due date.
-                            This operations changes the IDs of the tasks.
-  undo                      Undoes the latest change made to tasks. Only one undo is
-                            available
-  help                      Displays how this program can be used
+                                Specifying "clear" removes any color.
+  rename [task_id] [taske name] Renames the task with ID 'task_id' to task name'.
+  remove [task_id]              Removes the task with ID 'task_id'.
+  list                          Lists all tasks.
+  show [task_id]                Shows details for the task with ID 'task_id'
+  sort                          Groups tasks by color and sorts them by colors of the rainbow
+                                (red -> purple). Within each group, tasks are sorted by due date.
+                                This operations changes the IDs of the tasks.
+  undo                          Undoes the latest change made to tasks. Only one undo is
+                                available
+  help                          Displays how this program can be used

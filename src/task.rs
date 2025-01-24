@@ -366,6 +366,21 @@ pub fn show_help(args_iter: env::Args) -> Result<()> {
     Ok(())
 }
 
+// Rename a task
+pub fn rename_task<T>(tasks: &mut [Task], mut args_iter: T) -> Result<()>
+where
+    T: Iterator<Item = String> {
+    let task_id = parse_task_id(tasks, &args_iter.next())?;
+    let name_old = tasks[task_id].name.to_owned();
+    let name_new = args_iter.collect::<Vec<String>>().join(" ");
+
+    tasks[task_id].name = name_new;
+
+    println!("Renamed task \'{}\' to \'{}\'", name_old, tasks[task_id].name);
+
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -433,6 +448,38 @@ mod tests {
             Result::Ok(..)
         ));
         assert!(tasks.is_empty());
+    }
+
+    #[test]
+    fn test_rename_task() {
+        let mut tasks = vec![Task::new(String::from("test"))];
+        let taskname_new = String::from("test renamed");
+
+        let args_iter_incorrect: IntoIter<String> = vec![String::from("2")].into_iter();
+        let args_iter_invalid: IntoIter<String> = vec![String::from("foobar")].into_iter();
+        let args_iter_missing: IntoIter<String> = vec![].into_iter();
+        let args_iter_correct: IntoIter<String> = vec![String::from("1"), taskname_new.clone()].into_iter();
+
+        assert!(matches!(
+            rename_task(&mut tasks, args_iter_incorrect),
+            Result::Err(ArgError::TaskNotFound)
+        ));
+
+        assert!(matches!(
+            rename_task(&mut tasks, args_iter_invalid),
+            Result::Err(ArgError::InvalidTaskId(..))
+        ));
+
+        assert!(matches!(
+            rename_task(&mut tasks, args_iter_missing),
+            Result::Err(ArgError::ArgMissing(..))
+        ));
+
+        assert!(matches!(
+            rename_task(&mut tasks, args_iter_correct),
+            Result::Ok(..)
+        ));
+        assert_eq!(tasks[0].name, taskname_new);
     }
 
     #[test]
