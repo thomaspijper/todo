@@ -345,18 +345,29 @@ pub fn add_duedate<T>(tasks: &mut [Task], mut args_iter: T) -> Result<()>
 where
     T: Iterator<Item = String> {
     let task_id = parse_task_id(tasks, &args_iter.next())?;
-
     let date_string = args_iter.next().ok_or(ArgError::ArgMissing(String::from("date")))?;
+    check_for_more_args(args_iter)?;
+    
+    if date_string == "clear" {
+        tasks[task_id].due_date = None;
+        println!("Due date for task \'{}\' has been cleared", tasks[task_id].name)
+    } else {
     let due_date = NaiveDate::parse_from_str(date_string.as_str(), "%Y-%m-%d")
         .map_err(|_| ArgError::IncorrectDateFormat)?;
-
-    check_for_more_args(args_iter)?;
-
     tasks[task_id].due_date = Some(due_date);
+    println!("Due date for task \'{}\' was set to {}",
+        tasks[task_id].name,
+        tasks[task_id]
+            .due_date
+            .unwrap()
+            .format("%Y-%m-%d")
+        )
+    }
 
     Ok(())
 }
 
+// Show program help
 pub fn show_help(args_iter: env::Args) -> Result<()> {
     check_for_more_args(args_iter)?;
 
@@ -494,6 +505,7 @@ mod tests {
         let args_iter_missing_1: IntoIter<String> = vec![].into_iter();
         let args_iter_missing_2: IntoIter<String> = vec![String::from("1")].into_iter();
         let args_iter_correct: IntoIter<String> = vec![String::from("1"), due_date.clone()].into_iter();
+        let args_iter_correct_clear: IntoIter<String> = vec![String::from("1"), String::from("clear")].into_iter();
 
         assert!(matches!(
             add_duedate(&mut tasks, args_iter_incorrect_1),
@@ -535,6 +547,15 @@ mod tests {
                 .format("%Y-%m-%d")
                 .to_string(),
             due_date
+        );
+
+        assert!(matches!(
+            add_duedate(&mut tasks, args_iter_correct_clear),
+            Result::Ok(..)
+        ));
+        assert_eq!(
+            tasks[0].due_date,
+            Option::None
         );
     }
 
