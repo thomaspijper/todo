@@ -24,6 +24,5 @@ Available commands:
   sort                          Groups tasks by color and sorts them by colors of the rainbow
                                 (red -> purple). Within each group, tasks are sorted by due date.
                                 This operations changes the IDs of the tasks.
-  undo                          Undoes the latest change made to tasks. Only one undo is
-                                available
+  undo                          Undoes the latest change made to tasks. 10 undos are available.
   help                          Displays how this program can be used
