@@ -31,6 +31,35 @@ impl Task {
     }
 }
 
+pub trait DateString {
+    fn string_from_creation_date(&self) -> String;
+    fn string_from_due_date(&self) -> String;
+}
+
+impl DateString for Task {
+    fn string_from_creation_date(&self) -> String {
+        self.creation_date.format("%Y-%m-%d").to_string()
+    }
+
+    fn string_from_due_date(&self) -> String {
+        match self.due_date {
+            Some(date) => {
+                let mut due_date = date
+                    .format("%Y-%m-%d")
+                    .to_string();
+                // Color red if due date is in the past
+                let dt = Local::now();
+                let today = NaiveDate::from_ymd_opt(dt.year(), dt.month(), dt.day()).unwrap();
+                if date < today {
+                    due_date = due_date.red_fg();
+                }
+                due_date
+            }
+            None => String::new()
+        }
+    }
+}
+
 // -- Error handling --
 type Result<T> = std::result::Result<T, ArgError>;
 
@@ -114,23 +143,8 @@ pub fn list_tasks(tasks: &[Task], args_iter: env::Args) -> Result<()> {
             None => String::from(" "),
         };
 
-        let creation_date = task.creation_date.format("%Y-%m-%d").to_string();
-
-        let due_date = match task.due_date {
-            Some(date) => {
-                let mut due_date = date
-                    .format("%Y-%m-%d")
-                    .to_string();
-                // Color red if due date is in the past
-                let dt = Local::now();
-                let today = NaiveDate::from_ymd_opt(dt.year(), dt.month(), dt.day()).unwrap();
-                if date < today {
-                    due_date = due_date.red_fg();
-                }
-                due_date
-            }
-            None => String::new()
-        };
+        let creation_date = task.string_from_creation_date();
+        let due_date = task.string_from_due_date();
 
         let note = if !task.note.is_empty() {
             String::from("✓")
@@ -166,27 +180,9 @@ pub fn show_task(tasks: &[Task], mut args_iter: env::Args) -> Result<()> {
     check_for_more_args(args_iter)?;
     let task = &tasks[task_id];
 
-    // Format creation date
-    let creation_date = tasks[task_id].creation_date
-        .format("%Y-%m-%d")
-        .to_string();
-
-    // Format due date
-    let due_date = match task.due_date {
-        Some(date) => {
-            let mut due_date = date
-                .format("%Y-%m-%d")
-                .to_string();
-            // Color red if due date is in the past
-            let dt = Local::now();
-            let today = NaiveDate::from_ymd_opt(dt.year(), dt.month(), dt.day()).unwrap();
-            if date < today {
-                due_date = due_date.red_fg();
-            }
-            due_date
-        }
-        None => String::new()
-    };
+    // Format dates
+    let creation_date = tasks[task_id].string_from_creation_date();
+    let due_date = task.string_from_due_date();
 
     // Format color
     let mut color = task.color
