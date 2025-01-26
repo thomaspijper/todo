@@ -29,14 +29,7 @@ impl Task {
             note: String::new()
         }
     }
-}
 
-pub trait DateString {
-    fn string_from_creation_date(&self) -> String;
-    fn string_from_due_date(&self) -> String;
-}
-
-impl DateString for Task {
     fn string_from_creation_date(&self) -> String {
         self.creation_date.format("%Y-%m-%d").to_string()
     }
@@ -47,7 +40,7 @@ impl DateString for Task {
                 let mut due_date = date
                     .format("%Y-%m-%d")
                     .to_string();
-                // Color red if due date is in the past
+                // Color the string red if due date is in the past
                 let dt = Local::now();
                 let today = NaiveDate::from_ymd_opt(dt.year(), dt.month(), dt.day()).unwrap();
                 if date < today {
