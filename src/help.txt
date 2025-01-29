@@ -25,4 +25,5 @@ Available commands:
                                 (red -> purple). Within each group, tasks are sorted by due date.
                                 This operations changes the IDs of the tasks.
   undo                          Undoes the latest change made to tasks. 10 undos are available.
+  info                          Displays info about the program, such as the version number.
   help                          Displays how this program can be used
