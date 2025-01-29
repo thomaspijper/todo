@@ -7,11 +7,12 @@ use std::path::PathBuf;
 
 use file_io::get_filename;
 
-fn set_undo(args_iter: env::Args) -> Result<(), task::ArgError> {
-    task::check_for_more_args(args_iter)?;
+const PKG_NAME: &str = env!("CARGO_PKG_NAME");
+const PKG_VERSION: &str = env!("CARGO_PKG_VERSION");
+const PKG_REPOSITORY: &str = env!("CARGO_PKG_REPOSITORY");
+const PKG_AUTHORS: &str = env!("CARGO_PKG_AUTHORS");
+const PKG_LICENSE: &str = env!("CARGO_PKG_LICENSE");
 
-    Ok(())
-}
 
 fn main() {
     let filename: PathBuf = get_filename();
@@ -40,20 +41,24 @@ fn main() {
     // Call the corresponding method
     let command_str = command.as_str();
     let result = match command_str {
-        "add"    => task::create_task(&mut tasks, args_iter),
+        "add"     => task::create_task(&mut tasks, args_iter),
 
-        "due"    => task::add_duedate(&mut tasks, args_iter),
-        "note"   => task::add_note(&mut tasks, args_iter),
-        "color"  => task::set_task_color(&mut tasks, args_iter),
-        "rename" => task::rename_task(&mut tasks, args_iter),
-        "remove" => task::delete_task(&mut tasks, args_iter),
+        "due"     => task::add_duedate(&mut tasks, args_iter),
+        "note"    => task::add_note(&mut tasks, args_iter),
+        "color"   => task::set_task_color(&mut tasks, args_iter),
+        "rename"  => task::rename_task(&mut tasks, args_iter),
+        "remove"  => task::delete_task(&mut tasks, args_iter),
 
-        "list"   => task::list_tasks(&tasks, args_iter),
-        "show"   => task::show_task(&tasks, args_iter),
-        "sort"   => task::sort_tasks(&mut tasks, args_iter),
-        "undo"   => set_undo(args_iter),
-        "help"   => task::show_help(args_iter),
-        other    => {
+        "list"    => task::list_tasks(&tasks, args_iter),
+        "show"    => task::show_task(&tasks, args_iter),
+        "sort"    => task::sort_tasks(&mut tasks, args_iter),
+        "undo"    => task::check_for_more_args(args_iter), // Only check args, nothing else to do
+        "info" => {
+            println!("{PKG_NAME} version {PKG_VERSION}, written by {PKG_AUTHORS} and released under the {PKG_LICENSE} license\n{PKG_REPOSITORY}");
+            std::process::exit(0);
+        }
+        "help"    => task::show_help(args_iter),
+        other     => {
             eprintln!("Unknown command given: {}\n", other);
             std::process::exit(1);
         }
