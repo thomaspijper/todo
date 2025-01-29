@@ -43,6 +43,7 @@ Finally, the following non-task specific commands are available:
 * `todo list` lists all tasks.
 * `todo sort` groups tasks by color and sorts them by colors of the rainbow (red -> purple). Within each group, tasks are sorted by due date. Note: this operations renumbers the IDs of the tasks.
 * `todo undo` undoes the latest change to tasks. 10 undoes are available.
+* `todo info` displays info about the program, such as the version number.
 * `todo help` displays how this program can be used.
 
 ## Data location
