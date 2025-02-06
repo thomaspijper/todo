@@ -98,7 +98,6 @@ fn create_backup(filename: &PathBuf) -> Result<()> {
 
         if backup_newer.exists() {
             rename(backup_newer, backup_older).map_err(FileError::Io)?;
-            println!("renamed");
         }
     }
 
